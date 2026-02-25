@@ -48,6 +48,10 @@
     <div class="chart-container">
         <canvas id="fraudChart"></canvas>
     </div>
+    <div class="chart-container">
+        <h2>Average Transaction Amount</h2>
+        <canvas id="amountChart"></canvas>
+    </div>
 
     <script>
         const normalCount = {{ normal }};
@@ -67,6 +71,33 @@
         });
 
         
+    </script>
+
+    <script>
+        const normalAvg = {{ normal_avg }};
+        const fraudAvg = {{ fraud_avg }};
+
+        const ctxBar = document.getElementById('amountChart').getContext('2d');
+
+        new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['Normal', 'Fraud'],
+            datasets: [{
+                label: 'Average Amount ($)',
+                data: [normalAvg, fraudAvg],
+                backgroundColor: ['#2196F3', '#FF9800']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
     </script>
     
     <a href="/predict">Go to Fraud Prediction</a>

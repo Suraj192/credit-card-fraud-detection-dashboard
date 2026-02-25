@@ -35,11 +35,40 @@ def get_fraud_stats():
 
     return stats
 
+
+def get_average_amounts():
+    conn = sqlite3.connect("fraud.db")
+    cursor = conn.cursor()
+
+    query = """
+    SELECT Class, AVG(Amount)
+    FROM transactions
+    GROUP BY Class
+    """
+
+    cursor.execute(query)
+    results= cursor.fetchall()
+    conn.close()
+
+    averages = {"normal_avg": 0, "fraud_avg" : 0}
+
+    for row in results:
+        if row[0] == 0:
+            averages["normal_avg"] = round(row[1], 2)
+        else:
+            averages["fraud_avg"] = round(row[1], 2)
+
+    return averages
+
+
 @app.route("/")
 def index():
     stats = get_fraud_stats()
+    averages = get_average_amounts()
+
+    
     return render_template("index.html", normal = stats["normal"],
-    fraud= stats["fraud"])
+    fraud= stats["fraud"], normal_avg = averages["normal_avg"], fraud_avg=averages["fraud_avg"])
 
 
 @app.route("/predict", methods=["GET", "POST"])
