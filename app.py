@@ -45,6 +45,7 @@ def index():
 @app.route("/predict", methods=["GET", "POST"])
 def predict():
     prediction = None
+    probability = None
 
     if request.method == "POST":
         time = float(request.form["Time"])
@@ -56,12 +57,16 @@ def predict():
 
         result = model.predict(input_array)[0]
 
+        prob = model.predict_proba(input_array)[0][1] # prabability of fraud
+        probability = round(prob*100,2)
+
+
         if result == 1:
             prediction = " ⚠️ Fradulent Transaction"
         else:
             prediction = " ✅ Normal Transaction"
 
-    return render_template("predict.html", prediction = prediction)
+    return render_template("predict.html", prediction = prediction, probability=probability)
 
 
 
