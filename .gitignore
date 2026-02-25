@@ -213,3 +213,6 @@ data/
 
 # Ignore database
 *.db
+
+# Ignore models
+models/*.pkl
