@@ -6,6 +6,7 @@ import numpy as np
 
 
 app = Flask(__name__)
+initialize_database()
 
 model = joblib.load("models/fraud_model.pkl")
 
@@ -60,6 +61,18 @@ def get_average_amounts():
 
     return averages
 
+def initialize_database():
+    if not os.path.exists("fraud.db"):
+        print("Database not found. Downloading dataset...")
+
+        url = "https://storage.googleapis.com/download.tensorflow.org/data/creditcard.csv"
+        df = pd.read_csv(url)
+
+        conn = sqlite3.connect("fraud.db")
+        df.to_sql("transactions", conn, if_exists="replace", index=False)
+        conn.close()
+
+        print("Database created successfully.")
 
 @app.route("/")
 def index():
