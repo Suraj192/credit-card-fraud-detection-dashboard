@@ -32,7 +32,8 @@ def get_fraud_stats():
 @app.route("/")
 def index():
     stats = get_fraud_stats()
-    return render_template("index.html", stats=stats)
+    return render_template("index.html", normal = stats["normal"],
+    fraud= stats["fraud"])
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Fraud Detection Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial;
@@ -20,6 +21,15 @@
         h1 {
             margin-top: 40px;
         }
+        .chart-container {
+            width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+
+        }
     </style>
 </head>
 <body>
@@ -28,13 +38,34 @@
 
     <div class="card">
         <h2>Normal Transactions</h2>
-        <p>{{ stats.normal }}</p>
+        <p>{{ normal }}</p>
     </div>
 
     <div class="card">
         <h2>Fraud Transactions</h2>
-        <p>{{ stats.fraud }}</p>
+        <p>{{ fraud }}</p>
     </div>
+    <div class="chart-container">
+        <canvas id="fraudChart"></canvas>
+    </div>
+
+    <script>
+        const normalCount = {{ normal }};
+        const fraudCount = {{ fraud }};
+
+        const ctx = document.getElementById('fraudChart').getContext("2d");
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels : ['Normal', 'Fraud'],
+                datasets: [{
+                    data: [normalCount, fraudCount],
+                    backgroundColor: ['#4CAF50', '#F44336']
+                }]
+            }
+        });
+    </script>
 
 </body>
 </html>
