@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fraud Prediction</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            margin: 50px auto;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        input {
+            margin: 10px;
+            padding: 8px;
+            width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Fraud Prediction</h1>
+
+        <form method="POST">
+            <input type="number" step="any" name="Time" placeholder="Transaction Time" required><br>
+            <input type="number" step="any" name="Amount" placeholder="Transaction Amount" required><br>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+            <h2>{{ prediction }}</h2>
+        {% endif %}
+
+        <a href="/">Back to Dashboard</a>
+    </div>
+
+</body>
+</html>
