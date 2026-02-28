@@ -15,6 +15,7 @@ def initialize_database():
 
         url = "https://storage.googleapis.com/download.tensorflow.org/data/creditcard.csv"
         df = pd.read_csv(url)
+        df = df.sample(n=50000, random_state=42)
 
         conn = sqlite3.connect("fraud.db")
         df.to_sql("transactions", conn, if_exists="replace", index=False)
