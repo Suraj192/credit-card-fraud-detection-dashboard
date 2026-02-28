@@ -27,6 +27,10 @@ This project builds a full-stack analytics application that:
 
 ---
 
+## 🌐 Live Demo
+
+https://credit-card-fraud-detection-dashboard.onrender.com
+
 ## 🏗 Architecture
 CSV Dataset
 ↓
